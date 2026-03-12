@@ -1,16 +1,13 @@
-name: Kiro Code Review
+name: Kiro Code Review (Reusable)
 
 on:
-  issue_comment:
-    types: [created]
-  pull_request_review_comment:
-    types: [created]
+  workflow_call:
+    secrets:
+      KIRO_AUTH_TOKEN:
+        required: true
 
 jobs:
   kiro-review:
-    if: |
-      github.event.issue.pull_request != null &&
-      contains(github.event.comment.body, '@kiro review')
     runs-on: ubuntu-latest
     permissions:
       contents: read
